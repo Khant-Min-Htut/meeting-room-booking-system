@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import React, { useEffect } from "react";
+import { X } from "lucide-react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -17,9 +16,9 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [isOpen]);
 
@@ -36,8 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
           <h2 className="text-xl font-semibold">{title}</h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-          >
+            className="p-1 hover:bg-gray-100 rounded-full transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
