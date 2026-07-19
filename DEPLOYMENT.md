@@ -5,14 +5,14 @@ This guide will help you deploy the Meeting Room Booking System to free hosting 
 ## Overview
 
 - **Frontend**: Vercel (React/Vite)
-- **Backend**: Render (Node.js/Express)
-- **Database**: Render PostgreSQL (free tier)
+- **Backend**: Railway (Node.js/Express) - More reliable than Render
+- **Database**: Railway PostgreSQL (free tier)
 
 ## Prerequisites
 
 1. GitHub account
 2. Vercel account (free)
-3. Render account (free)
+3. Railway account (free)
 4. Your code pushed to a GitHub repository
 
 ## Step 1: Prepare Your Code for Deployment
@@ -38,59 +38,65 @@ git branch -M main
 git push -u origin main
 ```
 
-## Step 2: Deploy Backend to Render
+## Step 2: Deploy Backend to Railway
 
-### 2.1 Create Render Account
+### 2.1 Create Railway Account
 
-1. Go to [render.com](https://render.com)
+1. Go to [railway.app](https://railway.app)
 2. Sign up for a free account
 3. Connect your GitHub account
 
-### 2.2 Create PostgreSQL Database
+### 2.2 Create New Project
 
-1. In Render dashboard, click "New +"
-2. Select "PostgreSQL"
-3. Name: `meeting-room-db`
-4. Select free tier
-5. Click "Create Database"
-6. **Important**: Copy the "Internal Database URL" - you'll need this later
-   postgresql://meeting_room_db_s6hs_user:salsmp7CFjuleUHhyjGN3B0jVnNyrNUG@dpg-d9e6pebrjlhs73br4q5g-a/meeting_room_db_s6hs
+1. In Railway dashboard, click "New Project"
+2. Select "Deploy from GitHub repo"
+3. Choose your repository
+4. Railway will automatically detect the backend
 
-### 2.3 Deploy Backend
+### 2.3 Configure Backend Service
 
-1. In Render dashboard, click "New +"
-2. Select "Web Service"
-3. Connect your GitHub repository
-4. Configure:
+1. Click on your backend service
+2. Go to "Settings" tab
+3. Set Root Directory: `backend`
+4. Build Command: `npm install && npx prisma generate && npm run build`
+5. Start Command: `npm start`
 
-**Build & Deploy:**
+### 2.4 Add PostgreSQL Database
 
-- Root Directory: `backend`
-- Build Command: `npm install`
-- Start Command: `npm start`
+1. In your Railway project, click "New Service"
+2. Select "Database"
+3. Choose "PostgreSQL"
+4. Click "Add PostgreSQL"
+5. Railway will automatically add it to your project
 
-**Environment Variables:**
+### 2.5 Set Environment Variables
 
-- `DATABASE_URL`: (paste the Internal Database URL from step 2.2)
+1. Go to your backend service
+2. Click "Variables" tab
+3. Add the following variables:
+
+- `DATABASE_URL`: Railway will automatically set this (click "Generate Prisma URL" from the database service)
 - `JWT_SECRET`: (generate a random string, e.g., `your-secret-key-here`)
 - `JWT_EXPIRES_IN`: `7d`
 - `PORT`: `5000`
 - `NODE_ENV`: `production`
 - `FRONTEND_URL`: (leave empty for now, will add after frontend deployment)
 
-5. Click "Create Web Service"
-6. Wait for deployment to complete
-7. **Copy the backend URL** (e.g., `https://your-backend.onrender.com`)
+### 2.6 Run Database Migrations
 
-### 2.4 Run Database Migrations
-
-1. In your Render dashboard, go to your backend service
-2. Click "Shell" (or use the Render CLI)
-3. Run:
+1. In Railway dashboard, go to your backend service
+2. Click "Deployments" tab
+3. Click "New Deployment"
+4. Add this as a build script (or run in console):
 
 ```bash
 npx prisma migrate deploy
 ```
+
+### 2.7 Get Backend URL
+
+1. After deployment completes, click on your backend service
+2. Copy the "Public URL" (e.g., `https://your-backend.railway.app`)
 
 ## Step 3: Deploy Frontend to Vercel
 
@@ -112,7 +118,7 @@ npx prisma migrate deploy
 
 **Environment Variables:**
 
-- `VITE_API_URL`: (paste your backend URL from step 2.3, e.g., `https://your-backend.onrender.com`)
+- `VITE_API_URL`: (paste your backend URL from step 2.7, e.g., `https://your-backend.railway.app`)
 
 4. Click "Deploy"
 5. Wait for deployment to complete
@@ -120,17 +126,18 @@ npx prisma migrate deploy
 
 ### 3.3 Update Backend CORS
 
-1. Go back to your Render backend service
-2. Add/Update environment variable:
+1. Go back to your Railway backend service
+2. Go to "Variables" tab
+3. Add/Update environment variable:
    - `FRONTEND_URL`: (paste your Vercel frontend URL)
-3. The backend will automatically redeploy
+4. The backend will automatically redeploy
 
 ## Step 4: Seed Initial Data (Optional)
 
 To create default users for testing:
 
-1. In Render dashboard, go to your backend service
-2. Click "Shell"
+1. In Railway dashboard, go to your backend service
+2. Click "Console" tab
 3. Run:
 
 ```bash
@@ -150,7 +157,7 @@ This will create:
 
 ## Environment Variables Reference
 
-### Backend (Render)
+### Backend (Railway)
 
 ```
 DATABASE_URL=postgresql://...
@@ -164,33 +171,35 @@ FRONTEND_URL=https://your-app.vercel.app
 ### Frontend (Vercel)
 
 ```
-VITE_API_URL=https://your-backend.onrender.com
+VITE_API_URL=https://your-backend.railway.app
 ```
 
 ## Troubleshooting
 
 ### Backend won't start
 
-- Check Render logs for errors
-- Ensure DATABASE_URL is correct
+- Check Railway logs for errors
+- Ensure DATABASE_URL is correct (Railway auto-generates this)
 - Verify migrations ran successfully
+- Check that the root directory is set to `backend`
 
 ### Frontend can't connect to backend
 
 - Verify VITE_API_URL is correct
 - Check backend CORS settings
-- Ensure backend is running
+- Ensure backend is running on Railway
 
 ### Database connection issues
 
 - Verify DATABASE_URL format
-- Check database is active in Render
+- Check database is active in Railway
 - Ensure migrations ran
+- Use Railway's "Generate Prisma URL" feature
 
 ## Cost
 
 - **Vercel**: Free tier (sufficient for this project)
-- **Render**: Free tier (includes PostgreSQL)
+- **Railway**: Free tier (includes PostgreSQL)
 - **Total**: $0/month
 
 ## Updating Your Application

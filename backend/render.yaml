@@ -3,7 +3,7 @@ services:
     name: meeting-room-booking-backend
     env: node
     buildCommand: npm install && npx prisma generate && npm run build
-    startCommand: npm start
+    startCommand: node dist/app.js
     envVars:
       - key: DATABASE_URL
         sync: false
