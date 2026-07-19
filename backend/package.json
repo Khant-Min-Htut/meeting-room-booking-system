@@ -12,7 +12,11 @@
     "prisma:studio": "prisma studio",
     "seed": "ts-node prisma/seed.ts"
   },
-  "keywords": ["meeting-room", "booking", "api"],
+  "keywords": [
+    "meeting-room",
+    "booking",
+    "api"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
