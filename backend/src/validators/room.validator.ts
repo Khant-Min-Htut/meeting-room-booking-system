@@ -1,48 +1,42 @@
-import { body } from 'express-validator';
+import { body } from "express-validator";
 
 export const createRoomValidator = [
-  body('name')
-    .trim()
-    .notEmpty()
-    .withMessage('Room name is required'),
-  body('capacity')
+  body("name").trim().notEmpty().withMessage("Room name is required"),
+  body("capacity")
     .isInt({ min: 1 })
-    .withMessage('Capacity must be a positive integer'),
-  body('location')
-    .trim()
-    .notEmpty()
-    .withMessage('Location is required'),
-  body('amenities')
-    .isArray()
-    .withMessage('Amenities must be an array')
+    .withMessage("Capacity must be a positive integer"),
+  body("location").trim().notEmpty().withMessage("Location is required"),
+  body("amenities")
+    .isString()
+    .withMessage("Amenities must be a string")
     .optional(),
-  body('imageUrl')
+  body("imageUrl")
     .isURL()
-    .withMessage('Image URL must be a valid URL')
-    .optional()
+    .withMessage("Image URL must be a valid URL")
+    .optional(),
 ];
 
 export const updateRoomValidator = [
-  body('name')
+  body("name")
     .trim()
     .notEmpty()
-    .withMessage('Room name is required')
+    .withMessage("Room name is required")
     .optional(),
-  body('capacity')
+  body("capacity")
     .isInt({ min: 1 })
-    .withMessage('Capacity must be a positive integer')
+    .withMessage("Capacity must be a positive integer")
     .optional(),
-  body('location')
+  body("location")
     .trim()
     .notEmpty()
-    .withMessage('Location is required')
+    .withMessage("Location is required")
     .optional(),
-  body('amenities')
-    .isArray()
-    .withMessage('Amenities must be an array')
+  body("amenities")
+    .isString()
+    .withMessage("Amenities must be a string")
     .optional(),
-  body('imageUrl')
+  body("imageUrl")
     .isURL()
-    .withMessage('Image URL must be a valid URL')
-    .optional()
+    .withMessage("Image URL must be a valid URL")
+    .optional(),
 ];
