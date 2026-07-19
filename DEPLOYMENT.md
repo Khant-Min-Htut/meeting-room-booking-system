@@ -54,6 +54,7 @@ git push -u origin main
 4. Select free tier
 5. Click "Create Database"
 6. **Important**: Copy the "Internal Database URL" - you'll need this later
+   postgresql://meeting_room_db_s6hs_user:salsmp7CFjuleUHhyjGN3B0jVnNyrNUG@dpg-d9e6pebrjlhs73br4q5g-a/meeting_room_db_s6hs
 
 ### 2.3 Deploy Backend
 
@@ -63,11 +64,13 @@ git push -u origin main
 4. Configure:
 
 **Build & Deploy:**
+
 - Root Directory: `backend`
 - Build Command: `npm install`
 - Start Command: `npm start`
 
 **Environment Variables:**
+
 - `DATABASE_URL`: (paste the Internal Database URL from step 2.2)
 - `JWT_SECRET`: (generate a random string, e.g., `your-secret-key-here`)
 - `JWT_EXPIRES_IN`: `7d`
@@ -84,6 +87,7 @@ git push -u origin main
 1. In your Render dashboard, go to your backend service
 2. Click "Shell" (or use the Render CLI)
 3. Run:
+
 ```bash
 npx prisma migrate deploy
 ```
@@ -107,6 +111,7 @@ npx prisma migrate deploy
 **Root Directory:** `frontend`
 
 **Environment Variables:**
+
 - `VITE_API_URL`: (paste your backend URL from step 2.3, e.g., `https://your-backend.onrender.com`)
 
 4. Click "Deploy"
@@ -127,11 +132,13 @@ To create default users for testing:
 1. In Render dashboard, go to your backend service
 2. Click "Shell"
 3. Run:
+
 ```bash
 npm run seed
 ```
 
 This will create:
+
 - Admin user: `admin@example.com` / `admin123`
 - Regular user: `user@example.com` / `user123`
 
@@ -144,6 +151,7 @@ This will create:
 ## Environment Variables Reference
 
 ### Backend (Render)
+
 ```
 DATABASE_URL=postgresql://...
 JWT_SECRET=your-secret-key-here
@@ -154,6 +162,7 @@ FRONTEND_URL=https://your-app.vercel.app
 ```
 
 ### Frontend (Vercel)
+
 ```
 VITE_API_URL=https://your-backend.onrender.com
 ```
@@ -161,16 +170,19 @@ VITE_API_URL=https://your-backend.onrender.com
 ## Troubleshooting
 
 ### Backend won't start
+
 - Check Render logs for errors
 - Ensure DATABASE_URL is correct
 - Verify migrations ran successfully
 
 ### Frontend can't connect to backend
+
 - Verify VITE_API_URL is correct
 - Check backend CORS settings
 - Ensure backend is running
 
 ### Database connection issues
+
 - Verify DATABASE_URL format
 - Check database is active in Render
 - Ensure migrations ran
@@ -186,6 +198,7 @@ VITE_API_URL=https://your-backend.onrender.com
 After making changes:
 
 1. Commit and push to GitHub:
+
 ```bash
 git add .
 git commit -m "Your changes"
@@ -197,6 +210,7 @@ git push
 ## Support
 
 If you encounter issues:
+
 - Check Render logs: Dashboard → Your Service → Logs
 - Check Vercel logs: Dashboard → Your Project → Deployments
 - Review environment variables
