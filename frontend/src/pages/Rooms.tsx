@@ -121,28 +121,28 @@ export const Rooms: React.FC = () => {
           <Input
             label="Room Name"
             {...register("name")}
-            error={errors.name?.message}
+            error={errors.name?.message?.toString()}
           />
           <Input
             label="Description"
             {...register("description")}
-            error={errors.description?.message}
+            error={errors.description?.message?.toString()}
           />
           <Input
             label="Capacity"
             type="number"
             {...register("capacity", { valueAsNumber: true })}
-            error={errors.capacity?.message}
+            error={errors.capacity?.message?.toString()}
           />
           <Input
             label="Location"
             {...register("location")}
-            error={errors.location?.message}
+            error={errors.location?.message?.toString()}
           />
           <Input
             label="Image URL"
             {...register("imageUrl")}
-            error={errors.imageUrl?.message}
+            error={errors.imageUrl?.message?.toString()}
           />
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -156,7 +156,7 @@ export const Rooms: React.FC = () => {
             />
             {errors.amenities && (
               <p className="mt-1 text-sm text-red-600">
-                {errors.amenities.message}
+                {errors.amenities.message?.toString()}
               </p>
             )}
           </div>

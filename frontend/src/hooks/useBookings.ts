@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import api from '../lib/api';
-import { Booking } from '../types';
+import { useState, useEffect } from "react";
+import api from "../lib/api";
+import { Booking } from "../types";
 
 export const useBookings = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -10,11 +10,11 @@ export const useBookings = () => {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/bookings');
+      const response = await api.get("/api/bookings");
       setBookings(response.data.data);
       setError(null);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to fetch bookings');
+      setError(err.response?.data?.message || "Failed to fetch bookings");
     } finally {
       setLoading(false);
     }
@@ -22,7 +22,7 @@ export const useBookings = () => {
 
   const createBooking = async (bookingData: any) => {
     try {
-      const response = await api.post('/api/bookings', bookingData);
+      const response = await api.post("/api/bookings", bookingData);
       setBookings([...bookings, response.data.data]);
       return response.data.data;
     } catch (err: any) {
@@ -72,13 +72,22 @@ export const useMyBookings = () => {
   const fetchMyBookings = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/bookings/my');
+      const response = await api.get("/api/bookings/my");
       setBookings(response.data.data);
       setError(null);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to fetch bookings');
+      setError(err.response?.data?.message || "Failed to fetch bookings");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const deleteBooking = async (id: string) => {
+    try {
+      await api.delete(`/api/bookings/${id}`);
+      setBookings((prev) => prev.filter((booking) => booking.id !== id));
+    } catch (err: any) {
+      throw err;
     }
   };
 
@@ -86,5 +95,11 @@ export const useMyBookings = () => {
     fetchMyBookings();
   }, []);
 
-  return { bookings, loading, error, fetchMyBookings };
+  return {
+    bookings,
+    loading,
+    error,
+    fetchMyBookings,
+    deleteBooking,
+  };
 };

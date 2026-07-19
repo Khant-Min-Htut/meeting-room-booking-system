@@ -2,7 +2,7 @@ import React from "react";
 import { useMyBookings } from "../hooks/useBookings";
 import { formatDateTime } from "../lib/utils";
 import { Button } from "../components/ui/Button";
-import { Trash2, Edit } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 export const Bookings: React.FC = () => {
   const { bookings, loading, deleteBooking } = useMyBookings();
