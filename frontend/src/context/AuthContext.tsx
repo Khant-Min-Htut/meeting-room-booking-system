@@ -1,12 +1,23 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import api from '../lib/api';
-import { User } from '../types';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import api from "../lib/api";
+import { User } from "../types";
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
@@ -23,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await api.get('/api/auth/me');
+      const response = await api.get("/api/auth/me");
       setUser(response.data.data);
     } catch (error) {
       setUser(null);
@@ -33,12 +44,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const login = async (email: string, password: string) => {
-    const response = await api.post('/api/auth/login', { email, password });
-    setUser(response.data.data.user);
+    const response = await api.post("/api/auth/login", { email, password });
+
+    const { user, token } = response.data.data;
+
+    localStorage.setItem("token", token);
+
+    setUser(user);
   };
 
-  const register = async (email: string, password: string, firstName: string, lastName: string) => {
-    const response = await api.post('/api/auth/register', {
+  const register = async (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) => {
+    const response = await api.post("/api/auth/register", {
       email,
       password,
       firstName,
@@ -48,7 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    await api.post('/api/auth/logout');
+    await api.post("/api/auth/logout");
     setUser(null);
   };
 
@@ -61,8 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         register,
         logout,
         isAuthenticated: !!user,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );
@@ -71,7 +91,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
