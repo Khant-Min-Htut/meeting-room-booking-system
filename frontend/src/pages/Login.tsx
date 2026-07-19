@@ -1,16 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '../lib/validations';
-import { useAuth } from '../context/AuthContext';
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "../lib/validations";
+import { useAuth } from "../context/AuthContext";
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [error, setError] = React.useState<string>('');
+  const [error, setError] = React.useState<string>("");
 
   const {
     register,
@@ -22,11 +22,11 @@ export const Login: React.FC = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      setError('');
+      setError("");
       await login(data.email, data.password);
-      navigate('/');
+      navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed");
     }
   };
 
@@ -43,25 +43,24 @@ export const Login: React.FC = () => {
           <Input
             label="Email"
             type="email"
-            {...register('email')}
-            error={errors.email?.message}
+            {...register("email")}
+            error={errors.email?.message?.toString()}
           />
           <Input
             label="Password"
             type="password"
-            {...register('password')}
-            error={errors.password?.message}
+            {...register("password")}
+            error={errors.password?.message?.toString()}
           />
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Logging in...' : 'Login'}
+            {isSubmitting ? "Logging in..." : "Login"}
           </Button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <button
-            onClick={() => navigate('/register')}
-            className="text-primary-600 hover:underline"
-          >
+            onClick={() => navigate("/register")}
+            className="text-primary-600 hover:underline">
             Register
           </button>
         </p>

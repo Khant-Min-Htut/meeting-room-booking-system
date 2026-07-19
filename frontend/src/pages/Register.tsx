@@ -1,16 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { registerSchema } from '../lib/validations';
-import { useAuth } from '../context/AuthContext';
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "../lib/validations";
+import { useAuth } from "../context/AuthContext";
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
   const { register: registerUser } = useAuth();
-  const [error, setError] = React.useState<string>('');
+  const [error, setError] = React.useState<string>("");
 
   const {
     register,
@@ -22,11 +22,16 @@ export const Register: React.FC = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      setError('');
-      await registerUser(data.email, data.password, data.firstName, data.lastName);
-      navigate('/');
+      setError("");
+      await registerUser(
+        data.email,
+        data.password,
+        data.firstName,
+        data.lastName,
+      );
+      navigate("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed');
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
@@ -42,36 +47,35 @@ export const Register: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Input
             label="First Name"
-            {...register('firstName')}
-            error={errors.firstName?.message}
+            {...register("firstName")}
+            error={errors.firstName?.message?.toString()}
           />
           <Input
             label="Last Name"
-            {...register('lastName')}
-            error={errors.lastName?.message}
+            {...register("lastName")}
+            error={errors.lastName?.message?.toString()}
           />
           <Input
             label="Email"
             type="email"
-            {...register('email')}
-            error={errors.email?.message}
+            {...register("email")}
+            error={errors.email?.message?.toString()}
           />
           <Input
             label="Password"
             type="password"
-            {...register('password')}
-            error={errors.password?.message}
+            {...register("password")}
+            error={errors.password?.message?.toString()}
           />
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating account...' : 'Register'}
+            {isSubmitting ? "Creating account..." : "Register"}
           </Button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <button
-            onClick={() => navigate('/login')}
-            className="text-primary-600 hover:underline"
-          >
+            onClick={() => navigate("/login")}
+            className="text-primary-600 hover:underline">
             Login
           </button>
         </p>
