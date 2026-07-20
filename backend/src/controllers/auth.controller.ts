@@ -14,8 +14,8 @@ export const register = async (req: AuthRequest, res: Response) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      sameSite: "none",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(201).json({
@@ -33,14 +33,20 @@ export const register = async (req: AuthRequest, res: Response) => {
 };
 
 export const login = async (req: AuthRequest, res: Response) => {
+  console.log("1. Login request received");
+
   try {
+    console.log("2. Before loginService");
+
     const { user, token } = await loginService(req.body);
+
+    console.log("3. loginService completed");
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      sameSite: "none", // change this for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
@@ -49,6 +55,8 @@ export const login = async (req: AuthRequest, res: Response) => {
       data: { user, token },
     });
   } catch (error: any) {
+    console.error("LOGIN ERROR:", error);
+
     res.status(401).json({
       success: false,
       message: "Login failed",
