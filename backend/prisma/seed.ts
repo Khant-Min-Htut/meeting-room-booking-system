@@ -11,7 +11,7 @@ async function main() {
     update: {},
     create: {
       email: "admin@example.com",
-      password: adminPassword,
+      password: "admin123",
       firstName: "Admin",
       lastName: "User",
       role: "ADMIN",
@@ -25,7 +25,7 @@ async function main() {
     update: {},
     create: {
       email: "user@example.com",
-      password: userPassword,
+      password: "user123",
       firstName: "Regular",
       lastName: "User",
       role: "USER",

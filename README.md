@@ -230,7 +230,7 @@ After running the seed script, you can login with:
 - Email: user@example.com
 - Password: user123
 
-## Deployment
+<!-- ## Deployment
 
 ### Backend (Render)
 
@@ -249,6 +249,7 @@ After running the seed script, you can login with:
 1. Create a PostgreSQL database on Neon
 2. Copy connection string to `.env` file
 3. Run migrations: `npx prisma migrate deploy`
+ -->
 
 ## License
 

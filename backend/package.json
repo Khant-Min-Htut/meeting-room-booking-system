@@ -36,13 +36,17 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
-    "@types/node": "^20.10.6",
+    "@types/node": "^20.19.43",
     "prisma": "^5.7.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.3"
+    "tsx": "^4.23.1",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": "20.x"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }
