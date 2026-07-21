@@ -27,7 +27,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
           Welcome back, {user?.firstName}!
         </h1>
         <p className="mt-2 text-gray-600">
@@ -35,40 +35,40 @@ export const Dashboard: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
           <div className="flex items-center">
             <div className="p-3 bg-primary-100 rounded-lg">
-              <Calendar className="w-6 h-6 text-primary-600" />
+              <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-600">Total Bookings</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-xs sm:text-sm text-gray-600">Total Bookings</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {bookings.length}
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
           <div className="flex items-center">
             <div className="p-3 bg-green-100 rounded-lg">
-              <Users className="w-6 h-6 text-green-600" />
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-600">Upcoming</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-xs sm:text-sm text-gray-600">Upcoming</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {upcomingBookings.length}
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
           <div className="flex items-center">
             <div className="p-3 bg-blue-100 rounded-lg">
-              <DoorOpen className="w-6 h-6 text-blue-600" />
+              <DoorOpen className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm text-gray-600">Quick Action</p>
+              <p className="text-xs sm:text-sm text-gray-600">Quick Action</p>
               <Button
                 size="sm"
                 onClick={() => navigate("/rooms")}
@@ -81,10 +81,12 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="bg-white rounded-lg shadow">
-        <div className="px-6 py-4 border-b">
-          <h2 className="text-xl font-semibold">Upcoming Bookings</h2>
+        <div className="px-4 sm:px-6 py-4 border-b">
+          <h2 className="text-lg sm:text-xl font-semibold">
+            Upcoming Bookings
+          </h2>
         </div>
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {loading ?
             <p className="text-gray-600">Loading...</p>
           : upcomingBookings.length === 0 ?
@@ -97,8 +99,8 @@ export const Dashboard: React.FC = () => {
                 <div
                   key={booking.id}
                   className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex justify-between items-start">
-                    <div>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <div className="flex-1">
                       <h3 className="font-semibold text-gray-900">
                         {booking.room?.name}
                       </h3>

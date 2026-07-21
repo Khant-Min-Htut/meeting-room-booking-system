@@ -69,7 +69,9 @@ export const NewBooking: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Book a Room</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          Book a Room
+        </h1>
         <p className="mt-2 text-gray-600">
           Fill in the details to book a meeting room
         </p>
@@ -79,15 +81,17 @@ export const NewBooking: React.FC = () => {
         <div className="flex items-center justify-center py-12">
           <p className="text-gray-600">Loading rooms...</p>
         </div>
-      : <div className="bg-white rounded-lg shadow p-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      : <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 sm:space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Select Room
               </label>
               <select
                 {...register("roomId")}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
                 onChange={(e) => setSelectedRoom(e.target.value)}>
                 <option value="">Choose a room...</option>
                 {rooms.map((room) => (
@@ -104,7 +108,7 @@ export const NewBooking: React.FC = () => {
             </div>
 
             {selectedRoomData && (
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
                 <h3 className="font-semibold text-gray-900 mb-2">
                   {selectedRoomData.name}
                 </h3>
@@ -125,7 +129,7 @@ export const NewBooking: React.FC = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Start Time
@@ -133,7 +137,7 @@ export const NewBooking: React.FC = () => {
                 <input
                   type="datetime-local"
                   {...register("startTime")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
                 />
                 {errors.startTime && (
                   <p className="mt-1 text-sm text-red-600">
@@ -148,7 +152,7 @@ export const NewBooking: React.FC = () => {
                 <input
                   type="datetime-local"
                   {...register("endTime")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
                 />
                 {errors.endTime && (
                   <p className="mt-1 text-sm text-red-600">
@@ -178,7 +182,7 @@ export const NewBooking: React.FC = () => {
               <textarea
                 {...register("notes")}
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm sm:text-base"
               />
               {errors.notes && (
                 <p className="mt-1 text-sm text-red-600">
@@ -187,7 +191,7 @@ export const NewBooking: React.FC = () => {
               )}
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
               <Button
                 type="button"
                 variant="secondary"

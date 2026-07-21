@@ -41,9 +41,11 @@ export const Rooms: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Meeting Rooms</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            Meeting Rooms
+          </h1>
           <p className="mt-2 text-gray-600">
             Browse and book available meeting rooms
           </p>
@@ -51,7 +53,7 @@ export const Rooms: React.FC = () => {
         {user?.role === "ADMIN" && (
           <Button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center space-x-2">
+            className="flex items-center space-x-2 w-full sm:w-auto">
             <Plus className="w-4 h-4" />
             <span>Add Room</span>
           </Button>
@@ -60,7 +62,7 @@ export const Rooms: React.FC = () => {
 
       {loading ?
         <p className="text-gray-600">Loading rooms...</p>
-      : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      : <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {rooms.map((room) => (
             <div
               key={room.id}
@@ -69,11 +71,11 @@ export const Rooms: React.FC = () => {
                 <img
                   src={room.imageUrl}
                   alt={room.name}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-40 sm:h-48 object-cover"
                 />
               )}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
                   {room.name}
                 </h3>
                 {room.description && (
@@ -81,13 +83,13 @@ export const Rooms: React.FC = () => {
                     {room.description}
                   </p>
                 )}
-                <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                <div className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-gray-500 mb-4">
                   <div className="flex items-center space-x-1">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{room.location}</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Users className="w-4 h-4" />
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{room.capacity} people</span>
                   </div>
                 </div>
