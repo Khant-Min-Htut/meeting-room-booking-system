@@ -49,13 +49,7 @@ export const loginService = async (data: LoginInput) => {
     throw new Error("Invalid credentials");
   }
 
-  console.log("Login attempt for:", data.email);
-  console.log("Password from request:", data.password);
-  console.log("Hashed password in DB:", user.password);
-
   const isPasswordValid = await comparePassword(data.password, user.password);
-
-  console.log("Password valid:", isPasswordValid);
 
   if (!isPasswordValid) {
     throw new Error("Invalid credentials");
