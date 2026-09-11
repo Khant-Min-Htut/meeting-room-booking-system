@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,14 +7,22 @@ import {
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Header } from "./components/layout/Header";
-import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
-import { Dashboard } from "./pages/Dashboard";
-import { Rooms } from "./pages/Rooms";
-import { Bookings } from "./pages/Bookings";
-import { NewBooking } from "./pages/NewBooking";
-import { Users } from "./pages/Users";
-import { Reports } from "./pages/Reports";
+
+// Code-split pages: each route loads its own chunk on demand
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Rooms = lazy(() => import("./pages/Rooms"));
+const Bookings = lazy(() => import("./pages/Bookings"));
+const NewBooking = lazy(() => import("./pages/NewBooking"));
+const Users = lazy(() => import("./pages/Users"));
+const Reports = lazy(() => import("./pages/Reports"));
+
+const PageLoader: React.FC = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin" />
+  </div>
+);
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -60,6 +68,7 @@ function App() {
       <Router>
         <div className="min-h-screen bg-gray-50">
           <Header />
+          <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route
               path="/login"
@@ -127,6 +136,7 @@ function App() {
             />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          </Suspense>
         </div>
       </Router>
     </AuthProvider>

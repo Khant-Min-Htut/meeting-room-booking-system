@@ -8,15 +8,21 @@ import { Button } from "../components/ui/Button";
 
 export const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  const { bookings: allBookings, loading: allLoading } = useBookings();
-  const { bookings: myBookings, loading: myLoading } = useMyBookings();
   const navigate = useNavigate();
 
   // Admin and Owner see all bookings, regular users see only their own
-  const bookings =
-    user?.role === "ADMIN" || user?.role === "OWNER" ? allBookings : myBookings;
-  const loading =
-    user?.role === "ADMIN" || user?.role === "OWNER" ? allLoading : myLoading;
+  const canSeeAll = user?.role === "ADMIN" || user?.role === "OWNER";
+
+  // Only fetch the list this user will actually display
+  const { bookings: allBookings, loading: allLoading } = useBookings({
+    enabled: canSeeAll === true,
+  });
+  const { bookings: myBookings, loading: myLoading } = useMyBookings({
+    enabled: canSeeAll === false,
+  });
+
+  const bookings = canSeeAll ? allBookings : myBookings;
+  const loading = canSeeAll ? allLoading : myLoading;
 
   const upcomingBookings = bookings
     .filter(
@@ -130,3 +136,5 @@ export const Dashboard: React.FC = () => {
     </div>
   );
 };
+
+export default Dashboard;

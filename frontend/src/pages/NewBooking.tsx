@@ -209,3 +209,5 @@ export const NewBooking: React.FC = () => {
     </div>
   );
 };
+
+export default NewBooking;

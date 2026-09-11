@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import api from "../lib/api";
 import { Booking } from "../types";
 
-export const useBookings = () => {
+export const useBookings = (options?: { enabled?: boolean }) => {
+  const enabled = options?.enabled ?? true;
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [error, setError] = useState<string | null>(null);
 
   const fetchBookings = async () => {
@@ -50,8 +51,12 @@ export const useBookings = () => {
   };
 
   useEffect(() => {
-    fetchBookings();
-  }, []);
+    if (enabled) {
+      fetchBookings();
+    } else {
+      setLoading(false);
+    }
+  }, [enabled]);
 
   return {
     bookings,
@@ -64,9 +69,10 @@ export const useBookings = () => {
   };
 };
 
-export const useMyBookings = () => {
+export const useMyBookings = (options?: { enabled?: boolean }) => {
+  const enabled = options?.enabled ?? true;
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(enabled);
   const [error, setError] = useState<string | null>(null);
 
   const fetchMyBookings = async () => {
@@ -92,8 +98,12 @@ export const useMyBookings = () => {
   };
 
   useEffect(() => {
-    fetchMyBookings();
-  }, []);
+    if (enabled) {
+      fetchMyBookings();
+    } else {
+      setLoading(false);
+    }
+  }, [enabled]);
 
   return {
     bookings,

@@ -179,3 +179,5 @@ export const Rooms: React.FC = () => {
     </div>
   );
 };
+
+export default Rooms;

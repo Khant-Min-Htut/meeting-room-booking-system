@@ -188,3 +188,5 @@ export const Bookings: React.FC = () => {
     </div>
   );
 };
+
+export default Bookings;
